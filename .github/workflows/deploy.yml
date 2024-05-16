@@ -18,13 +18,24 @@ jobs:
       with:
         node-version: '14'
 
-    - name: Install dependencies
+    - name: Install backend dependencies
+      run: |
+        cd backend
+        npm install
+
+    - name: Deploy backend
+      env:
+        GOOGLE_SHEETS_API_KEY: ${{ secrets.GOOGLE_SHEETS_API_KEY }}
+        GOOGLE_SHEETS_ID: ${{ secrets.GOOGLE_SHEETS_ID }}
+      run: |
+        cd backend
+        node server.js &  # バックエンドサーバを起動
+
+    - name: Install frontend dependencies
       run: npm install
 
     - name: Build the project
       run: npm run build
 
     - name: Deploy to GitHub Pages
-      env:
-        GOOGLE_SHEETS_API_KEY: ${{ secrets.GOOGLE_SHEETS_API_KEY }}
       run: npm run deploy

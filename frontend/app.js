@@ -1,9 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const sheetId = '1cdUDiIkbsvduNufgOy--zf9oaZcWe2ATMZNGBFvfhUw';
-    const apiKey = process.env.GOOGLE_SHEETS_API_KEY;
-    const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?`;
-    
-    fetch(base)
+    fetch('/api/data')
         .then(response => response.json())
         .then(data => {
             const papers = data.values.slice(1).map(row => {
